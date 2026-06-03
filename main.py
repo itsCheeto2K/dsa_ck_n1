@@ -1,8 +1,6 @@
 
 from __future__ import annotations
 
-from pathlib import Path
-
 try:
 	from src.directed_graph import DirectedGraph
 	from src.chu_liu_edmonds import ChuLiuEdmonds
@@ -18,12 +16,22 @@ def _strip_comment(line: str) -> str:
 			line = line[:idx]
 	return line.strip()
 
+EMBEDDED_INPUT = """\
+# Format:
+#   V E root(optional)
+#   then E lines: u v w
 
-def _read_problem_from_file(path: Path):
-	if not path.exists():
-		return None
+4 5 0
+0 1 1
+0 2 5
+1 2 1
+2 3 1
+1 3 5
+"""
 
-	raw_lines = path.read_text(encoding="utf-8", errors="ignore").splitlines()
+
+def _read_problem_from_text(text: str):
+	raw_lines = text.splitlines()
 	lines = [_strip_comment(line) for line in raw_lines]
 	lines = [line for line in lines if line]
 	if not lines:
@@ -68,13 +76,10 @@ def _read_problem_from_file(path: Path):
 
 
 def main():
-	base_dir = Path(__file__).resolve().parent
-	input_path = base_dir / "data" / "input.txt"
-
 	try:
-		problem = _read_problem_from_file(input_path)
+		problem = _read_problem_from_text(EMBEDDED_INPUT)
 		if problem is None:
-			print(f"Input file is empty or missing: {input_path}")
+			print("Embedded input is empty.")
 			print("Falling back to console input...")
 			graph = DirectedGraph.readFromConsole()
 			if graph is None:
