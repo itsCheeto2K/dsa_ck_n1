@@ -9,8 +9,12 @@ class Arborescence:
 
     def is_valid(self):
         in_degree = {}
+        outgoing = {}
         for e in self.edges:
             in_degree[e.v] = in_degree.get(e.v, 0) + 1
+            if e.u not in outgoing:
+                outgoing[e.u] = []
+            outgoing[e.u].append(e.v)
 
         for v in range(self.num_vertices):
             if v == self.root:
@@ -19,7 +23,21 @@ class Arborescence:
             else:
                 if in_degree.get(v, 0) != 1:
                     return False
-        return len(self.edges) == self.num_vertices - 1
+
+        if len(self.edges) != self.num_vertices - 1:
+            return False
+
+        # Ensure every vertex is reachable from the root.
+        reachable = set([self.root])
+        stack = [self.root]
+        while stack:
+            u = stack.pop()
+            for v in outgoing.get(u, []):
+                if v not in reachable:
+                    reachable.add(v)
+                    stack.append(v)
+
+        return len(reachable) == self.num_vertices
 
     def print_result(self):
         print(f"Hợp lệ: {self.is_valid()}")
