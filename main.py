@@ -16,19 +16,32 @@ def _strip_comment(line: str) -> str:
 			line = line[:idx]
 	return line.strip()
 
+# EMBEDDED_INPUT = """\
+# # Format:
+# #   V E root(optional)
+# #   then E lines: u v w
+
+# 4 5 0
+# 0 1 1
+# 0 2 5
+# 1 2 1
+# 2 3 1
+# 1 3 5
+# """
+
 EMBEDDED_INPUT = """\
 # Format:
 #   V E root(optional)
 #   then E lines: u v w
 
-4 5 0
-0 1 1
-0 2 5
-1 2 1
-2 3 1
-1 3 5
+4 6 0
+0 1 10
+0 2 20
+1 2 2
+2 1 3
+2 3 5
+1 3 15
 """
-
 
 def _read_problem_from_text(text: str):
 	raw_lines = text.splitlines()
