@@ -1,8 +1,5 @@
-try:
-    from src.edge import Edge
-except Exception:
-    from edge import Edge
-
+#@title class DirectedGraph - MTu
+from src.edge import Edge
 
 class DirectedGraph:
     def __init__(self, numVertices):

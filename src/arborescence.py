@@ -1,8 +1,9 @@
+#@title class Arborescence - KAn
 class Arborescence:
     def __init__(self, edges, root, num_vertices):
         self.edges = edges
-        self.root = root                    
-        self.num_vertices = num_vertices    
+        self.root = root
+        self.num_vertices = num_vertices
 
     def total_weight(self):
         return sum(e.w for e in self.edges)
@@ -27,7 +28,6 @@ class Arborescence:
         if len(self.edges) != self.num_vertices - 1:
             return False
 
-        # Ensure every vertex is reachable from the root.
         reachable = set([self.root])
         stack = [self.root]
         while stack:
